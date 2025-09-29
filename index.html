@@ -60,7 +60,7 @@
                 <div class="panel">
                     <label>Aturan Kategori</label>
                     <ul class="rules">
-                        <li>0–12: GenAlpha (GA)</li>
+                        <li>1–12: GenAlpha (GA)</li>
                         <li>13–27: GenZ (GZ)</li>
                         <li>28–43: Millennial (GM)</li>
                         <li>44–59: GenX (GX)</li>
@@ -87,7 +87,7 @@
                 alert('Masukkan angka yang valid.');
                 return false;
             }
-            if (age < 0 || age > 100) {
+            if (age < 1 || age > 100) {
                 alert('Umur harus diantara 0-100');
                 return false;
             }
@@ -107,3 +107,4 @@
 </body>
 
 </html>
+
