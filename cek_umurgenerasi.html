@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form Validasi Umur</title>
+    <style>
+        :root {
+            --bg: #f6f7fb;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --border: #e5e7eb;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            color: var(--text);
+            background: radial-gradient(1200px 600px at 10% -10%, #eef2ff, transparent),
+                        radial-gradient(1000px 500px at 110% 10%, #ecfeff, transparent),
+                        var(--bg);
+        }
+        .container { max-width: 720px; margin: 48px auto; padding: 0 16px; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; box-shadow: 0 10px 30px rgba(31,41,55,0.06); }
+        h2 { margin: 0 0 12px 0; font-size: 26px; }
+        .subtitle { margin: 0 0 20px 0; color: var(--muted); font-size: 14px; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 640px) { .grid { grid-template-columns: 1fr 1fr; } }
+        .panel { border: 1px dashed var(--border); border-radius: 12px; padding: 16px; background: #fcfcfd; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; }
+        .field { display: flex; gap: 12px; }
+        input[type="number"] { width: 160px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; outline: none; transition: border-color .2s, box-shadow .2s; font-size: 14px; background: #fff; }
+        input[type="number"]:focus { border-color: #c7d2fe; box-shadow: 0 0 0 4px rgba(79,70,229,.12); }
+        button { padding: 10px 14px; border-radius: 10px; border: 1px solid transparent; background: var(--primary); color: #fff; font-weight: 600; cursor: pointer; transition: background-color .15s ease, transform .05s ease; }
+        button:hover { background: var(--primary-hover); }
+        button:active { transform: translateY(1px); }
+        .rules { margin: 0; padding-left: 18px; color: var(--muted); }
+        .result { margin-top: 8px; font-weight: 600; }
+        .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #eef2ff; color: #3730a3; font-size: 12px; border: 1px solid #e0e7ff; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Cek Umur Generasi <span class="badge">Demo</span></h2>
+            <p class="subtitle">Masukkan umur untuk melihat kategori generasi.</p>
+            <div class="grid">
+                <div class="panel">
+                    <label>Masukkan Umur</label>
+                    <div class="field">
+                        <input type="number" id="age" name="age" value="0" min="0" max="100">
+                        <button onclick="validateForm()">Cek Validasi</button>
+                    </div>
+                    <p id="result" class="result"></p>
+                </div>
+                <div class="panel">
+                    <label>Aturan Kategori</label>
+                    <ul class="rules">
+                        <li>0–12: GenAlpha (GA)</li>
+                        <li>13–27: GenZ (GZ)</li>
+                        <li>28–43: Millennial (GM)</li>
+                        <li>44–59: GenX (GX)</li>
+                        <li>60–78: BabyBoomer (GB)</li>
+                        <li>79–100: GenSilent (GS)</li>
+                        <li><span style="color:#dc2626;">&lt;0 atau &gt;100: INVALID</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //onkey enter validateForm
+        document.getElementById('age').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                validateForm();
+            }
+        });
+        
+        function validateForm(event) {
+            const ageValue = document.getElementById('age').value;
+            const age = Number(ageValue);
+            if (Number.isNaN(age)) {
+                alert('Masukkan angka yang valid.');
+                return false;
+            }
+            if (age < 0 || age > 100) {
+                alert('Umur harus diantara 0-100');
+                return false;
+            }
+
+            let result = '';
+            if (age <= 12) result = 'GenAlpha (GA)';
+            else if (age <27) result = 'Gen Z (GZ)';
+            else if (age <= 43) result = 'Millennial (GM)';
+            else if (age <= 59) result = 'Gen X (GX)';
+            else if (age <= 78) result = 'Baby Boomers (GB)';
+            else result = 'GenSilent (GS)';
+
+            document.getElementById('result').innerHTML = 'Kategori: ' + result;
+            return true;
+        }
+    </script>
+</body>
+
+</html>
